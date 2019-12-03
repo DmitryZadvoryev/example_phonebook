@@ -3,6 +3,7 @@ package example.phonebook.service;
 import example.phonebook.data.entity.Contact;
 import example.phonebook.data.repository.ContactRepository;
 import example.phonebook.data.repository.PhoneBookRepository;
+import example.phonebook.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,5 +67,14 @@ public class ContactService {
      */
     public void delete(Long id) {
         contactRepository.deleteById(id);
+    }
+
+    /**
+     * Проверка существует ли контакт в БД
+     * @param id - ИД контакта
+     * @return true или false
+     */
+    public boolean isExist(Long id){
+        return contactRepository.existsContactById(id);
     }
 }

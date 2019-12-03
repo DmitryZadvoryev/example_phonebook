@@ -125,15 +125,6 @@ public class UserController {
             userService.delete(id);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
-        /**
-        try {
-            userService.delete(id);
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-         *
-         */
     }
 }
 

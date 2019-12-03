@@ -90,11 +90,11 @@ public class ContactController {
      */
     @DeleteMapping(value = "{id}")
     public ResponseEntity<User> delete(@PathVariable("id") Long id) {
-        try {
+        if(contactService.isExist(id)==false){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        } else {
             contactService.delete(id);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }
