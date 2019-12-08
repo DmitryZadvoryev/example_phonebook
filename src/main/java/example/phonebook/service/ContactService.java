@@ -19,11 +19,10 @@ public class ContactService {
      * @param id - ИД
      * @return контакт
      */
-    public Contact get(Long id)
-    {
+    public Contact get(Long id) {
         try {
             return contactRepository.findContactById(id);
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -37,7 +36,7 @@ public class ContactService {
     public Contact getContactByNumber(String number) {
         try {
             return contactRepository.findContactByNumber(number);
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -74,12 +73,14 @@ public class ContactService {
     public void delete(Long id) {
         contactRepository.deleteById(id);
     }
+
     /**
      * Проверка существует ли контакт в БД
+     *
      * @param id - ИД контакта
      * @return true или false
      */
-    public boolean isExist(Long id){
+    public boolean isExist(Long id) {
         return contactRepository.existsContactById(id);
     }
 }

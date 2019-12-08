@@ -1,5 +1,7 @@
 package example.phonebook.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,7 +17,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "phone_book_id", nullable = false)
     PhoneBook phoneBook;
 
     public User() {
@@ -41,6 +45,14 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    public PhoneBook getPhoneBook() {
+        return phoneBook;
+    }
+
+    public void setPhoneBook(PhoneBook phoneBook) {
+        this.phoneBook = phoneBook;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof PhoneBook)) return false;
@@ -55,4 +67,12 @@ public class User implements Serializable {
         return Objects.hash(id, name, phoneBook);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phoneBook=" + phoneBook +
+                '}';
+    }
 }

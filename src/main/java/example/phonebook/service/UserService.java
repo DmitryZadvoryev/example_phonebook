@@ -33,7 +33,7 @@ public class UserService {
     public User get(long id) {
         try {
             return userRepository.findUserById(id);
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class UserService {
                 owners.add(user);
             }
             return owners;
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return Collections.emptyList();
         }
     }
@@ -63,7 +63,7 @@ public class UserService {
      * @param id - ИД пользователя
      * @return список контактов
      */
-    public List<Contact> getAllUserContacts(Long id){
+    public List<Contact> getAllUserContacts(Long id) {
         try {
             PhoneBook phoneBook = phoneBookRepository.findPhoneBookByOwner_Id(id);
             return phoneBook.getContacts();
@@ -81,7 +81,7 @@ public class UserService {
     public List<User> getByName(String name) {
         try {
             return userRepository.findByNameStartingWithIgnoreCase(name);
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return Collections.emptyList();
         }
     }
@@ -92,7 +92,7 @@ public class UserService {
      * @param user - пользователь
      */
     public void create(User user) {
-       userRepository.save(user);
+        userRepository.save(user);
     }
 
     /**
@@ -126,4 +126,5 @@ public class UserService {
     public boolean isExist(Long id) {
         return userRepository.existsUserById(id);
     }
+
 }

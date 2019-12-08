@@ -1,16 +1,17 @@
 package example.phonebook.controllers;
 
 import example.phonebook.data.entity.Contact;
+import example.phonebook.data.entity.User;
+import example.phonebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import example.phonebook.data.entity.User;
-import example.phonebook.service.UserService;
 
 import java.util.List;
 
 import static example.phonebook.constants.Constants.VERSION;
+import static example.phonebook.validation.Validation.requireNull;
 
 @RestController
 @RequestMapping(VERSION + "phonebooks/users")
@@ -24,7 +25,7 @@ public class UserController {
      *
      * @return возвращает список всех пользователей
      */
-    @GetMapping
+    @GetMapping(value = "/owners")
     public ResponseEntity<List<User>> list() {
         List<User> users = userService.getAllOwners();
         if (users.isEmpty()) {
@@ -59,7 +60,7 @@ public class UserController {
     @GetMapping(value = {"names/{name}"})
     public ResponseEntity<List<User>> getUserByName(@PathVariable("name") String name) {
         List<User> user = userService.getByName(name);
-        if (user == null) {
+        if (requireNull(user)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(user, HttpStatus.OK);
@@ -74,7 +75,7 @@ public class UserController {
     @GetMapping(value = "{id}")
     public ResponseEntity<User> getOne(@PathVariable("id") Long id) {
         User user = userService.get(id);
-        if (user == null) {
+        if (requireNull(user)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(user, HttpStatus.OK);
@@ -88,7 +89,7 @@ public class UserController {
      */
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User user) {
-        if (user == null) {
+        if (requireNull(user)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             userService.create(user);
@@ -103,7 +104,7 @@ public class UserController {
      */
     @PutMapping(value = "{id}")
     public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User user) {
-        if (user == null) {
+        if (requireNull(user)) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         } else {
             userService.update(id, user);
@@ -118,7 +119,7 @@ public class UserController {
      */
     @DeleteMapping(value = "{id}")
     public ResponseEntity<User> delete(@PathVariable("id") Long id) {
-        if(userService.isExist(id)==false){
+        if (!userService.isExist(id)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
             userService.delete(id);

@@ -16,7 +16,7 @@ public class PhoneBook implements Serializable {
     @OneToOne(orphanRemoval = true, mappedBy = "phoneBook")
     private User owner;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "phoneBook")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "phoneBook")
     private List<Contact> contacts;
 
     public PhoneBook() {
@@ -47,6 +47,10 @@ public class PhoneBook implements Serializable {
         return contacts;
     }
 
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof PhoneBook)) return false;
@@ -61,4 +65,12 @@ public class PhoneBook implements Serializable {
         return Objects.hash(id, owner, contacts);
     }
 
+    @Override
+    public String toString() {
+        return "PhoneBook{" +
+                "id=" + id +
+                ", owner=" + owner +
+                ", contacts=" + contacts +
+                '}';
+    }
 }

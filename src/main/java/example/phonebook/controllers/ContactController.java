@@ -2,7 +2,6 @@ package example.phonebook.controllers;
 
 
 import example.phonebook.data.entity.Contact;
-import example.phonebook.data.entity.User;
 import example.phonebook.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static example.phonebook.constants.Constants.VERSION;
+import static example.phonebook.validation.Validation.requireNull;
 
 @RestController
 @RequestMapping(VERSION + "phonebooks/contacts")
@@ -29,7 +29,7 @@ public class ContactController {
     @GetMapping(value = "{id}")
     public ResponseEntity<Contact> getOne(@PathVariable("id") Long id) {
         Contact contact = contactService.get(id);
-        if (contact == null) {
+        if (requireNull(contact)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(contact, HttpStatus.OK);
@@ -45,7 +45,7 @@ public class ContactController {
     @GetMapping(value = "/number/{number}")
     public ResponseEntity<Contact> getContactByNumber(@PathVariable("number") String number) {
         Contact contact = contactService.getContactByNumber(number);
-        if (contact == null) {
+        if (requireNull(contact)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(contact, HttpStatus.OK);
@@ -59,8 +59,8 @@ public class ContactController {
      */
     @PostMapping
     public ResponseEntity<Contact> create(@Valid @RequestBody Contact contact) {
-        if (contact == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (requireNull(contact)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             contactService.create(contact);
             return new ResponseEntity<>(contact, HttpStatus.CREATED);
@@ -75,7 +75,7 @@ public class ContactController {
      */
     @PutMapping(value = "{id}")
     public ResponseEntity<Contact> update(@PathVariable("id") Long id, @RequestBody Contact contact) {
-        if (contact == null) {
+        if (requireNull(contact)) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         } else {
             contactService.update(id, contact);
@@ -89,9 +89,8 @@ public class ContactController {
      * @param id - ИД контакта
      */
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<User> delete(@PathVariable("id") Long id) {
-        Contact contact = contactService.get(id);
-        if(contact == null){
+    public ResponseEntity<Contact> delete(@PathVariable("id") Long id) {
+        if(!contactService.isExist(id)){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
             contactService.delete(id);

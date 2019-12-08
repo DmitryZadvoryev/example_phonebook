@@ -23,13 +23,14 @@ public class Contact implements Serializable {
     private String number;
 
     @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="phone_book_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "phone_book_id", nullable = false)
     PhoneBook phoneBook;
 
-    public Contact() {}
+    public Contact() {
+    }
 
-    public Contact(String name, String number){
+    public Contact(String name, String number) {
         this.name = name;
         this.number = number;
     }
@@ -81,4 +82,13 @@ public class Contact implements Serializable {
         return Objects.hash(id, name, number, phoneBook);
     }
 
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", phoneBook=" + phoneBook +
+                '}';
+    }
 }
