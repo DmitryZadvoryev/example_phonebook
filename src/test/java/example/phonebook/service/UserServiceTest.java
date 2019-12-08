@@ -26,37 +26,57 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
 
     @Autowired
-   private UserService userService;
+    private UserService userService;
 
+
+    /**
+     * Получение пользователя
+     */
     @Test
     void getTrue() {
         User user = userService.get(1L);
         assertEquals(1L, user.getId());
     }
+
+    /**
+     * Получение несуществующего пользователя
+     */
     @Test
-    void getFalse() {
+    void getFail() {
         User user = userService.get(999L);
         assertNull(user);
     }
 
+    /**
+     * Получение все владельцев телефонных книжек
+     */
     @Test
     void getAllOwners() {
         List<User> allOwners = userService.getAllOwners();
-        assertEquals(5, allOwners.size());
+        assertEquals(3, allOwners.size());
     }
 
+    /**
+     * Получение всех контактов пользователя
+     */
     @Test
     void getAllUserContacts() {
         List<Contact> allUserContacts = userService.getAllUserContacts(1L);
         assertEquals(3, allUserContacts.size());
     }
 
+    /**
+     * Получение пользователя части по имени
+     */
     @Test
     void getByName() {
         List<User> users = userService.getByName("d");
         assertEquals(2, users.size());
     }
 
+    /**
+     * Создание пользователя
+     */
     @Test
     void create() {
         User user = new User("Patrick");
@@ -65,14 +85,20 @@ class UserServiceTest {
         assertEquals(user.getName(), usersByName.get(0).getName());
     }
 
+    /**
+     * Обновление пользователя
+     */
     @Test
     void update() {
-        User user =  new User("Patrick");
+        User user = new User("Patrick");
         userService.update(5L, user);
         User userById = userService.get(5L);
-        assertEquals("Patrick",userById.getName());
+        assertEquals("Patrick", userById.getName());
     }
 
+    /**
+     * Удаление пользователя
+     */
     @Test
     void delete() {
         userService.delete(3L);
@@ -80,14 +106,20 @@ class UserServiceTest {
         assertNull(user);
     }
 
+    /**
+     * Проверка существует ли пользователь
+     */
     @Test
     void isExistTrue() {
         boolean exist = userService.isExist(3L);
         assertTrue(exist);
     }
 
+    /**
+     * Есть ли пользователь с несуществующим ИД
+     */
     @Test
-    void isExistFalse() {
+    void isExistFail() {
         boolean exist = userService.isExist(99L);
         assertFalse(exist);
     }

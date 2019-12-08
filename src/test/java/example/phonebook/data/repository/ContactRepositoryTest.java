@@ -30,7 +30,7 @@ class ContactRepositoryTest {
     }
 
     @Test
-    void findContactByIdFalse() {
+    void findContactByIdFail() {
         Contact contactById = contactRepository.findContactById(1L);
         assertEquals(1, contactById.getId());
     }
@@ -42,7 +42,7 @@ class ContactRepositoryTest {
     }
 
     @Test
-    void findContactByNumberFalse() {
+    void findContactByNumberFail() {
         Contact contactByNumber = contactRepository.findContactByNumber("+1112223344");
         assertNull(contactByNumber);
     }
@@ -68,6 +68,6 @@ class ContactRepositoryTest {
         contact.setNumber("+79650560689");
         contactRepository.save(contact);
         Contact contactByNumber = contactRepository.findContactByNumber("+79650560689");
-        assertEquals(contactByNumber.getNumber(),"+79650560689");
+        assertEquals(contactByNumber.getNumber(), "+79650560689");
     }
 }

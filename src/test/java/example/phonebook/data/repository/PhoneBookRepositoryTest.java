@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Sql(value = {"/create-phonebooks-before.sql", "/create-users-before.sql", "/create-contacts-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/delete-contacts-after.sql", "/delete-users-after.sql", "/delete-phonebooks-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class PhoneBookRepositoryTest{
+class PhoneBookRepositoryTest {
 
     @Autowired
     PhoneBookRepository phoneBookRepository;
@@ -31,7 +31,7 @@ class PhoneBookRepositoryTest{
     @Test
     void findAll() {
         List<PhoneBook> all = phoneBookRepository.findAll();
-        assertEquals(3 ,all.size());
+        assertEquals(3, all.size());
     }
 
     @Test
@@ -48,10 +48,11 @@ class PhoneBookRepositoryTest{
     }
 
     @Test
-    void findByIdFalse() {
+    void findByIdFail() {
         PhoneBook phoneBookById = phoneBookRepository.findPhonebookById(99L);
         assertNull(phoneBookById);
     }
+
     @Test
     void findPhoneBookByOwner_IdTrue() {
         PhoneBook phoneBookByOwner_id = phoneBookRepository.findPhoneBookByOwner_Id(4L);
@@ -59,7 +60,7 @@ class PhoneBookRepositoryTest{
     }
 
     @Test
-    void findPhoneBookByOwner_IdFalse() {
+    void findPhoneBookByOwner_IdFail() {
         PhoneBook phoneBookByOwner_id = phoneBookRepository.findPhoneBookByOwner_Id(99L);
         assertNull(phoneBookByOwner_id);
     }

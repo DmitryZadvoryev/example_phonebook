@@ -1,7 +1,6 @@
 package example.phonebook.data.repository;
 
 import example.phonebook.data.entity.User;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Sql(value = {"/create-phonebooks-before.sql", "/create-users-before.sql", "/create-contacts-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/delete-contacts-after.sql", "/delete-users-after.sql", "/delete-phonebooks-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class UserRepositoryTest{
+class UserRepositoryTest {
 
     @Autowired
     UserRepository userRepository;
@@ -32,7 +31,7 @@ class UserRepositoryTest{
     @Test
     void findAll() {
         List<User> all = userRepository.findAll();
-        assertEquals(5,all.size());
+        assertEquals(5, all.size());
     }
 
     @Test
@@ -42,7 +41,7 @@ class UserRepositoryTest{
     }
 
     @Test
-    void findUserByIdFalse() {
+    void findUserByIdFail() {
         User user = userRepository.findUserById(99L);
         assertNull(user);
     }
@@ -73,7 +72,7 @@ class UserRepositoryTest{
     }
 
     @Test
-    void existsUserByIdFalse() {
+    void existsUserByIdFail() {
         boolean userExist = userRepository.existsUserById(99L);
         assertFalse(userExist);
     }
