@@ -13,11 +13,10 @@ public class PhoneBook implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @OneToOne(orphanRemoval = true, mappedBy = "phoneBook")
     private User owner;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "phoneBook")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "phoneBook")
     private List<Contact> contacts;
 
     public PhoneBook() {
@@ -62,12 +61,4 @@ public class PhoneBook implements Serializable {
         return Objects.hash(id, owner, contacts);
     }
 
-    @Override
-    public String toString() {
-        return "PhoneBook{" +
-                "id=" + id +
-                ", owner=" + owner +
-                ", contacts=" + contacts +
-                '}';
-    }
 }

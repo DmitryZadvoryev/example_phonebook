@@ -2,10 +2,10 @@ package example.phonebook.service;
 
 import example.phonebook.data.entity.Contact;
 import example.phonebook.data.repository.ContactRepository;
-import example.phonebook.data.repository.PhoneBookRepository;
-import example.phonebook.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.NoResultException;
 
 @Service
 public class ContactService {
@@ -13,17 +13,19 @@ public class ContactService {
     @Autowired
     ContactRepository contactRepository;
 
-    @Autowired
-    PhoneBookRepository phoneBookRepository;
-
     /**
      * Поиск контакта по ИД
      *
      * @param id - ИД
      * @return контакт
      */
-    public Contact get(Long id) {
-        return contactRepository.findContactById(id);
+    public Contact get(Long id)
+    {
+        try {
+            return contactRepository.findContactById(id);
+        }catch (NoResultException e){
+            return null;
+        }
     }
 
     /**
@@ -33,7 +35,11 @@ public class ContactService {
      * @return контакт
      */
     public Contact getContactByNumber(String number) {
-        return contactRepository.findContactByNumber(number);
+        try {
+            return contactRepository.findContactByNumber(number);
+        } catch (NoResultException e){
+            return null;
+        }
     }
 
     /**
@@ -68,7 +74,6 @@ public class ContactService {
     public void delete(Long id) {
         contactRepository.deleteById(id);
     }
-
     /**
      * Проверка существует ли контакт в БД
      * @param id - ИД контакта

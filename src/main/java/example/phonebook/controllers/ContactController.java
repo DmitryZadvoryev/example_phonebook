@@ -1,10 +1,10 @@
 package example.phonebook.controllers;
 
+
 import example.phonebook.data.entity.Contact;
 import example.phonebook.data.entity.User;
 import example.phonebook.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,7 +90,8 @@ public class ContactController {
      */
     @DeleteMapping(value = "{id}")
     public ResponseEntity<User> delete(@PathVariable("id") Long id) {
-        if(contactService.isExist(id)==false){
+        Contact contact = contactService.get(id);
+        if(contact == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
             contactService.delete(id);

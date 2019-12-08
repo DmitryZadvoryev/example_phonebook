@@ -1,5 +1,7 @@
 package example.phonebook.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -17,10 +19,12 @@ public class Contact implements Serializable {
     private String name;
 
     @Column(nullable = false)
-    @Pattern(regexp = "^7\\d{10}$")
+    @Pattern(regexp = "^\\+(7|8)\\d{10}$")
     private String number;
 
-    @ManyToOne()
+    @JsonIgnore
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="phone_book_id", nullable = false)
     PhoneBook phoneBook;
 
     public Contact() {}
@@ -54,6 +58,13 @@ public class Contact implements Serializable {
         this.number = number;
     }
 
+    public PhoneBook getPhoneBook() {
+        return phoneBook;
+    }
+
+    public void setPhoneBook(PhoneBook phoneBook) {
+        this.phoneBook = phoneBook;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -70,13 +81,4 @@ public class Contact implements Serializable {
         return Objects.hash(id, name, number, phoneBook);
     }
 
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", phoneBook=" + phoneBook +
-                '}';
-    }
 }

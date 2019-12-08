@@ -1,11 +1,10 @@
 package example.phonebook.controllers;
 
+import example.phonebook.data.entity.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import example.phonebook.data.entity.Contact;
 import example.phonebook.data.entity.User;
 import example.phonebook.service.UserService;
 
@@ -27,7 +26,7 @@ public class UserController {
      */
     @GetMapping
     public ResponseEntity<List<User>> list() {
-        List<User> users = userService.getAll();
+        List<User> users = userService.getAllOwners();
         if (users.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -41,10 +40,10 @@ public class UserController {
      * @param id - ИД пользователя
      * @return возвращает список контактов пользователя
      */
-    @GetMapping(value = "/contacts/{id}")
+    @GetMapping(value = "{id}/contacts")
     public ResponseEntity<List<Contact>> getAllUserContacts(@PathVariable("id") Long id) {
         List<Contact> allUserContaсts = userService.getAllUserContacts(id);
-        if (allUserContaсts.isEmpty()) {
+        if (allUserContaсts.isEmpty() || allUserContaсts == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(allUserContaсts, HttpStatus.OK);

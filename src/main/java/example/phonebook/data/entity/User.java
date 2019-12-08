@@ -55,12 +55,4 @@ public class User implements Serializable {
         return Objects.hash(id, name, phoneBook);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phoneBook=" + phoneBook +
-                '}';
-    }
 }
