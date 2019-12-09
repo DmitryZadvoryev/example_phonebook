@@ -2,14 +2,14 @@
 
 Это пример приложения Java 8 / Gradle / PostgreSQL / Spring Boot / JUnit
 
-###Требования:
+### Требования:
 
 - Java Platform (JDK) 8,
 - PostgreSQL
 - JUnit 5
 - Gradle 6.0.1
 
-###База данных
+### База данных
 Созадать и сконфигурировать базу данных, `url, username, password` можно изменить в `application.properties`.
 
 ### Запуск
@@ -17,5 +17,5 @@
 ./gradlew build
 ./gradlew bootRun or java -jar build/libs/PhonebookApplication.jar
 
-###Запуск теста
+### Запуск теста
 ./gradlew test
