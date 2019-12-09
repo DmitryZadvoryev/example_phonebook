@@ -14,8 +14,12 @@
 
 ### Запуск
 `git clone https://github.com/DmitryZadvoryev/example_phonebook.git`
-./gradlew build
-./gradlew bootRun or java -jar build/libs/PhonebookApplication.jar
+
+`./gradlew build`
+
+`./gradlew bootRun or java -jar build/libs/PhonebookApplication.jar`
+
+http://localhost:8080/
 
 ### Запуск теста
-./gradlew test
+`./gradlew test`
