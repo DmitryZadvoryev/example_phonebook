@@ -17,7 +17,7 @@
 
 `./gradlew build`
 
-`./gradlew bootRun or java -jar build/libs/PhonebookApplication.jar`
+`./gradlew bootRun или java -jar build/libs/PhonebookApplication.jar`
 
 http://localhost:8080/
 
