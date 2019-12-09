@@ -2,9 +2,14 @@ plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'application'
 }
 
-group = 'phonebook'
+bootJar {
+    mainClassName = 'example.phonebook.PhonebookApplication'
+}
+
+group = 'example.phonebook'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
