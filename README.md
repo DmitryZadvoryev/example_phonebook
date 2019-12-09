@@ -10,7 +10,7 @@
 - Gradle 6.0.1
 
 ### База данных
-Созадать и сконфигурировать базу данных, `url, username, password` можно изменить в `application.properties`.
+Создать и сконфигурировать базу данных, `url, username, password` можно изменить в `application.properties`.
 
 ### Запуск
 `git clone https://github.com/DmitryZadvoryev/example_phonebook.git`
