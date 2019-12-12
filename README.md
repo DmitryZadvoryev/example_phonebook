@@ -19,7 +19,5 @@
 
 `./gradlew bootRun или java -jar build/libs/PhonebookApplication.jar`
 
-http://localhost:8080/phonebooks
-
 ### Запуск теста
 `./gradlew test`
