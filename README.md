@@ -1,6 +1,6 @@
 # example_phonebook
 
-Это пример приложения Java 8 / Gradle / PostgreSQL / Spring Boot / JUnit
+Это пример приложения Java 8 / Gradle / PostgreSQL / Spring Boot / REST / JUnit
 
 ### Требования:
 
