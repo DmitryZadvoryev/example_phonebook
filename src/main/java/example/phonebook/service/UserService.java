@@ -31,11 +31,7 @@ public class UserService {
      * @return пользователь
      */
     public User get(long id) {
-        try {
             return userRepository.findUserById(id);
-        } catch (NoResultException e) {
-            return null;
-        }
     }
 
     /**
@@ -44,7 +40,6 @@ public class UserService {
      * @return список пользователей
      */
     public List<User> getAllOwners() {
-        try {
             List<PhoneBook> phoneBooks = phoneBookRepository.findAll();
             List<User> owners = new ArrayList<>();
             for (PhoneBook phoneBook : phoneBooks) {
@@ -52,9 +47,6 @@ public class UserService {
                 owners.add(user);
             }
             return owners;
-        } catch (NoResultException e) {
-            return Collections.emptyList();
-        }
     }
 
     /**
@@ -64,12 +56,8 @@ public class UserService {
      * @return список контактов
      */
     public List<Contact> getAllUserContacts(Long id) {
-        try {
             PhoneBook phoneBook = phoneBookRepository.findPhoneBookByOwner_Id(id);
             return phoneBook.getContacts();
-        } catch (NoResultException e) {
-            return Collections.emptyList();
-        }
     }
 
     /**
@@ -79,11 +67,7 @@ public class UserService {
      * @return пользователь
      */
     public List<User> getByName(String name) {
-        try {
             return userRepository.findByNameStartingWithIgnoreCase(name);
-        } catch (NoResultException e) {
-            return Collections.emptyList();
-        }
     }
 
     /**
