@@ -20,11 +20,7 @@ public class ContactService {
      * @return контакт
      */
     public Contact get(Long id) {
-        try {
             return contactRepository.findContactById(id);
-        } catch (NoResultException e) {
-            return null;
-        }
     }
 
     /**
@@ -34,11 +30,7 @@ public class ContactService {
      * @return контакт
      */
     public Contact getContactByNumber(String number) {
-        try {
             return contactRepository.findContactByNumber(number);
-        } catch (NoResultException e) {
-            return null;
-        }
     }
 
     /**
